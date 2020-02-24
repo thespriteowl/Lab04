@@ -31,5 +31,24 @@ void MainWindow::setCurrentTime()
     ui->minuteLCD->display(minute);
     ui->secondLCD->display(second);
 
+    int worldHour = hour.toInt() + 3;
+
+    ui->worldHourLCD->display(worldHour);
+    ui->worldMinuteLCD->display(minute);
+    ui->worldSecondLCD->display(second);
+
+    int timeDay = hour.toInt();
+
+    if (timeDay >= 0 && timeDay < 12)
+        ui->greetingLabel->setText("Good Morning!");
+    else if (timeDay > 11 && timeDay < 17)
+        ui->greetingLabel->setText("Good Afternoon!");
+    else if (timeDay > 16)
+        ui->greetingLabel->setText("Good Evening!");
+    else
+        ui->greetingLabel->setText("Hello!");
+
 }
+
+
 
