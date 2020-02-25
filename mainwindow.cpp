@@ -1,12 +1,19 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QFileDialog>
+#include <iostream>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
     ui(new Ui::MainWindow),
-    timer(new QTimer)
+    timer(new QTimer),
+    myModel(new todolist(this))
+
 {
     ui->setupUi(this);
+    ui->todoTable->setModel(myModel);
+
 
     connect(timer, SIGNAL(timeout()), this, SLOT(setCurrentTime()));
 
@@ -19,6 +26,8 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+
 
 void MainWindow::setCurrentTime()
 {
@@ -52,3 +61,19 @@ void MainWindow::setCurrentTime()
 
 
 
+
+
+void MainWindow::on_actionImport_To_Do_List_triggered()
+{
+    QString fileName = QFileDialog::getOpenFileName(this,
+        tr("Open Address Book"), "",
+        tr("Address Book (*.csv);;All Files (*)"));
+
+    myModel->openFile(fileName);
+}
+
+void MainWindow::on_actionTerminate_triggered()
+{
+    QApplication::quit();
+
+}

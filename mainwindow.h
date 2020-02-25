@@ -1,5 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+#include "todolist.h"
 
 #include <QMainWindow>
 #include <QTimer>
@@ -21,9 +22,14 @@ public:
 private slots:
     void setCurrentTime();
 
+    void on_actionImport_To_Do_List_triggered();
+
+    void on_actionTerminate_triggered();
+
 private:
     Ui::MainWindow *ui;
     QTimer *timer;
+    todolist *myModel;
 
 };
 #endif // MAINWINDOW_H
