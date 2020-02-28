@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1139</width>
-    <height>671</height>
+    <width>1024</width>
+    <height>768</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -65,8 +65,8 @@
    <widget class="QLCDNumber" name="worldSecondLCD">
     <property name="geometry">
      <rect>
-      <x>1010</x>
-      <y>500</y>
+      <x>900</x>
+      <y>600</y>
       <width>111</width>
       <height>101</height>
      </rect>
@@ -81,8 +81,8 @@
    <widget class="QLCDNumber" name="worldHourLCD">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>500</y>
+      <x>660</x>
+      <y>600</y>
       <width>111</width>
       <height>101</height>
      </rect>
@@ -97,8 +97,8 @@
    <widget class="QLCDNumber" name="worldMinuteLCD">
     <property name="geometry">
      <rect>
-      <x>890</x>
-      <y>500</y>
+      <x>780</x>
+      <y>600</y>
       <width>111</width>
       <height>101</height>
      </rect>
@@ -113,8 +113,8 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>780</x>
-      <y>460</y>
+      <x>670</x>
+      <y>560</y>
       <width>141</width>
       <height>31</height>
      </rect>
@@ -144,12 +144,18 @@
    <widget class="QTableView" name="todoTable">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>350</y>
-      <width>341</width>
-      <height>261</height>
+      <x>20</x>
+      <y>329</y>
+      <width>224</width>
+      <height>361</height>
      </rect>
     </property>
+    <attribute name="horizontalHeaderVisible">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderVisible">
+     <bool>false</bool>
+    </attribute>
    </widget>
    <widget class="QPushButton" name="loadImageButton">
     <property name="geometry">
@@ -169,8 +175,8 @@
      <rect>
       <x>680</x>
       <y>50</y>
-      <width>231</width>
-      <height>161</height>
+      <width>321</width>
+      <height>211</height>
      </rect>
     </property>
     <property name="text">
@@ -203,13 +209,26 @@
      <string>WeatherLabel</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>310</y>
+      <width>56</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TODO</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1139</width>
+     <width>1024</width>
      <height>26</height>
     </rect>
    </property>
@@ -220,7 +239,14 @@
     <addaction name="actionImport_To_Do_List"/>
     <addaction name="actionTerminate"/>
    </widget>
+   <widget class="QMenu" name="menuWeater">
+    <property name="title">
+     <string>Weather</string>
+    </property>
+    <addaction name="actionSelect_Zip_Code"/>
+   </widget>
    <addaction name="menuMenu"/>
+   <addaction name="menuWeater"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionImport_To_Do_List">
@@ -231,6 +257,11 @@
   <action name="actionTerminate">
    <property name="text">
     <string>Terminate</string>
+   </property>
+  </action>
+  <action name="actionSelect_Zip_Code">
+   <property name="text">
+    <string>Select Zip Code</string>
    </property>
   </action>
  </widget>

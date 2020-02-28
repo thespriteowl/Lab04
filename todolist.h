@@ -22,8 +22,6 @@ private:
     QString nameToFilter(const QString& name);
 
     std::vector<QString> todoItem;
-
-    std::vector<int> filteredIndex;
 };
 
 #endif // TODOLIST_H

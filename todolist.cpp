@@ -14,7 +14,7 @@ todolist::todolist(QObject *parent)
 //Getters for row and column
 int todolist::rowCount(const QModelIndex &parent) const
 {
-    return filteredIndex.size();
+    return todoItem.size();
 }
 int todolist::columnCount(const QModelIndex &parent) const
 {
@@ -24,7 +24,7 @@ int todolist::columnCount(const QModelIndex &parent) const
 QVariant todolist::data(const QModelIndex &index, int role) const
 {
     if (role == Qt::DisplayRole) {
-            return todoItem.at(filteredIndex[index.row()]);
+            return todoItem.at(index.row());
         }
 
 
@@ -53,13 +53,8 @@ void todolist::openFile(QString filePath)
         QString line = in.readLine();
         QStringList fields = line.split(",");
 
-        if (i == 0) continue;
-
         //Setting data in the model based on file
         todoItem.push_back(fields[0]);
-
-
-        filteredIndex.push_back(i);
     }
 
     //Close file and emit output signal

@@ -7,6 +7,8 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
+QString zipCode = "98404";
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -17,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->todoTable->setModel(myModel);
+    ui->todoTable->horizontalHeader()->setStretchLastSection(true);
 
     connect(timer, SIGNAL(timeout()),
             this, SLOT(setCurrentTime()));
@@ -30,14 +33,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(httpManager, SIGNAL(WeatherJsonReady(QJsonObject*)),
             this, SLOT(processWeatherJson(QJsonObject*)));
 }
-
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-
-
+//Updating the Clock
 void MainWindow::setCurrentTime()
 {
     QTime time = QTime::currentTime();
@@ -68,26 +69,26 @@ void MainWindow::setCurrentTime()
 
 }
 
+//Menu Bar Actions
 void MainWindow::on_actionImport_To_Do_List_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this,
-        tr("Open Address Book"), "",
-        tr("Address Book (*.csv);;All Files (*)"));
+        tr("Open Todo List"), "",
+        tr("Todo List (*.csv);;All Files (*)"));
 
     myModel->openFile(fileName);
 }
-
 void MainWindow::on_actionTerminate_triggered()
 {
     QApplication::quit();
 
 }
 
+//Process Network Requests
 void MainWindow::processImage(QPixmap *image)
 {
     ui->imageLabel->setPixmap(*image);
 }
-
 void MainWindow::processWeatherJson(QJsonObject *json)
 {
     QString weather = json->value("weather").toArray()[0].toObject()["main"].toString();
@@ -146,12 +147,12 @@ void MainWindow::processWeatherJson(QJsonObject *json)
 
 }
 
+//Interaction with UI
 void MainWindow::on_loadImageButton_clicked()
 {
     httpManager->sendImageRequest();
 }
-
 void MainWindow::on_weatherDownloadButton_clicked()
 {
-    httpManager->sendWeatherRequest("98404");
+    httpManager->sendWeatherRequest(zipCode);
 }
