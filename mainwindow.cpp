@@ -65,7 +65,9 @@ void MainWindow::setCurrentTime()
 
     int timeDay = hour.toInt();
 
-    if (timeDay >= 0 && timeDay < 12)
+    if (timeDay < 5)
+        ui->greetingLabel->setText("What are you doing up?!");
+    if (timeDay > 4 && timeDay < 12)
         ui->greetingLabel->setText("Good Morning!");
     else if (timeDay > 11 && timeDay < 17)
         ui->greetingLabel->setText("Good Afternoon!");
@@ -95,13 +97,16 @@ void MainWindow::on_actionTerminate_triggered()
 void MainWindow::processImage(QPixmap *image)
 {
     ui->weatherIconLabel->setPixmap(*image);
-    //ui->weatherIconLabel->setAutoFillBackground(true);
 }
 void MainWindow::processWeatherJson(QJsonObject *json)
 {
     QString weather = json->value("weather").toArray()[0].toObject()["main"].toString();
     double temp = json->value("main").toObject()["temp"].toDouble();
     double humidity = json->value("main").toObject()["humidity"].toDouble();
+
+    QString description = json->value("weather").toArray()[0].toObject()["description"].toString();
+    QString location = json->value("name").toString();
+    description = "The weather in " + location + " is " + description + ".";
 
     QString icon = json->value("weather").toArray()[0].toObject()["icon"].toString();
     QString iconUrl = "http://openweathermap.org/img/wn/" +
@@ -151,20 +156,21 @@ void MainWindow::processWeatherJson(QJsonObject *json)
 }*/
     }
 
+    qDebug() << "Json finished, sent Image Request.";
     httpManager->sendImageRequest(iconUrl);
 
+    ui->weatherTempLabel->setText(QString::number(temp) + " F");
+    ui->weatherDescLabel->setText(description);
+    ui->weatherHumidLabel->setText(QString::number(humidity) + "% Humidity.");
+
 }
 
-//Interaction with UI
-void MainWindow::on_loadImageButton_clicked()
-{
-    //httpManager->sendImageRequest();
-}
 void MainWindow::on_actionSelect_Zip_Code_triggered()
 {
     zipCode = QInputDialog::getText(this, tr("Type in a new zip code."),
                                     tr("Zip Code: "), QLineEdit::Normal,
                                     zipCode);
+    httpManager->sendWeatherRequest(zipCode);
 }
 
 void MainWindow::on_actionUpdate_Weather_triggered()

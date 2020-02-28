@@ -24,17 +24,14 @@ public:
 private slots:
     void setCurrentTime();
 
-    void on_actionImport_To_Do_List_triggered();
-
-    void on_actionTerminate_triggered();
-
+    //Network Actions
     void processImage(QPixmap*);
     void processWeatherJson(QJsonObject *json);
 
-    void on_loadImageButton_clicked();
-
+    //Menu Actions
+    void on_actionImport_To_Do_List_triggered();
+    void on_actionTerminate_triggered();
     void on_actionSelect_Zip_Code_triggered();
-
     void on_actionUpdate_Weather_triggered();
 
 private:

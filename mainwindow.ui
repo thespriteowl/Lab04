@@ -157,32 +157,6 @@
      <bool>false</bool>
     </attribute>
    </widget>
-   <widget class="QPushButton" name="loadImageButton">
-    <property name="geometry">
-     <rect>
-      <x>670</x>
-      <y>10</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Load Image</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="imageLabel">
-    <property name="geometry">
-     <rect>
-      <x>680</x>
-      <y>50</y>
-      <width>321</width>
-      <height>211</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
@@ -196,13 +170,13 @@
      <string>TODO</string>
     </property>
    </widget>
-   <widget class="QFrame" name="frame">
+   <widget class="QFrame" name="weatherFrame">
     <property name="geometry">
      <rect>
-      <x>590</x>
-      <y>280</y>
-      <width>251</width>
-      <height>221</height>
+      <x>670</x>
+      <y>10</y>
+      <width>341</width>
+      <height>131</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -214,17 +188,77 @@
     <widget class="QLabel" name="weatherIconLabel">
      <property name="geometry">
       <rect>
-       <x>50</x>
-       <y>60</y>
-       <width>101</width>
-       <height>101</height>
+       <x>10</x>
+       <y>10</y>
+       <width>50</width>
+       <height>50</height>
       </rect>
      </property>
+     <property name="minimumSize">
+      <size>
+       <width>50</width>
+       <height>50</height>
+      </size>
+     </property>
      <property name="text">
-      <string>WeatherIcon</string>
+      <string>Icon</string>
      </property>
      <property name="scaledContents">
-      <bool>true</bool>
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="weatherTempLabel">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>15</y>
+       <width>241</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>24</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Temp</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="weatherDescLabel">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>100</y>
+       <width>321</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Description</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="weatherHumidLabel">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>65</y>
+       <width>201</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Humidity</string>
      </property>
     </widget>
    </widget>
