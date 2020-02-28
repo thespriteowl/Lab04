@@ -20,10 +20,10 @@ HTTPManager::~HTTPManager()
     delete weatherAPIManager;
 }
 
-void HTTPManager::sendImageRequest()
+void HTTPManager::sendImageRequest(QString url)
 {
     QNetworkRequest request;
-    request.setUrl(QUrl("http://homepages.cae.wisc.edu/~ece533/images/airplane"));
+    request.setUrl(QUrl(url));
     imageDownloadManager->get(request);
     qDebug() << "Image request sent to address " << request.url();
 }

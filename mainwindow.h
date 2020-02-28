@@ -33,7 +33,9 @@ private slots:
 
     void on_loadImageButton_clicked();
 
-    void on_weatherDownloadButton_clicked();
+    void on_actionSelect_Zip_Code_triggered();
+
+    void on_actionUpdate_Weather_triggered();
 
 private:
     Ui::MainWindow *ui;

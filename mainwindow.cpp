@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QInputDialog>
 
 QString zipCode = "98404";
 
@@ -32,6 +33,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(httpManager, SIGNAL(WeatherJsonReady(QJsonObject*)),
             this, SLOT(processWeatherJson(QJsonObject*)));
+
+    //Get Network Requests
+    httpManager->sendWeatherRequest(zipCode);
+
+    //Graphics Settings
+    setStyleSheet("background-color: rgb(0,170,170)");
 }
 MainWindow::~MainWindow()
 {
@@ -87,15 +94,18 @@ void MainWindow::on_actionTerminate_triggered()
 //Process Network Requests
 void MainWindow::processImage(QPixmap *image)
 {
-    ui->imageLabel->setPixmap(*image);
+    ui->weatherIconLabel->setPixmap(*image);
+    //ui->weatherIconLabel->setAutoFillBackground(true);
 }
 void MainWindow::processWeatherJson(QJsonObject *json)
 {
     QString weather = json->value("weather").toArray()[0].toObject()["main"].toString();
-    QString description = json->value("weather").toArray()[0].toObject()["description"].toString();
     double temp = json->value("main").toObject()["temp"].toDouble();
-    double temp_min = json->value("main").toObject()["temp_min"].toDouble();
-    double temp_max = json->value("main").toObject()["temp_max"].toDouble();
+    double humidity = json->value("main").toObject()["humidity"].toDouble();
+
+    QString icon = json->value("weather").toArray()[0].toObject()["icon"].toString();
+    QString iconUrl = "http://openweathermap.org/img/wn/" +
+            icon + ".png";
 
     { //Json Structure Reference
         /*{
@@ -141,18 +151,23 @@ void MainWindow::processWeatherJson(QJsonObject *json)
 }*/
     }
 
-
-
-    ui->weatherLabel->setText(description);
+    httpManager->sendImageRequest(iconUrl);
 
 }
 
 //Interaction with UI
 void MainWindow::on_loadImageButton_clicked()
 {
-    httpManager->sendImageRequest();
+    //httpManager->sendImageRequest();
 }
-void MainWindow::on_weatherDownloadButton_clicked()
+void MainWindow::on_actionSelect_Zip_Code_triggered()
+{
+    zipCode = QInputDialog::getText(this, tr("Type in a new zip code."),
+                                    tr("Zip Code: "), QLineEdit::Normal,
+                                    zipCode);
+}
+
+void MainWindow::on_actionUpdate_Weather_triggered()
 {
     httpManager->sendWeatherRequest(zipCode);
 }

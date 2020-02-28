@@ -183,32 +183,6 @@
      <string>TextLabel</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="weatherDownloadButton">
-    <property name="geometry">
-     <rect>
-      <x>400</x>
-      <y>240</y>
-      <width>151</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Weather Download</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="weatherLabel">
-    <property name="geometry">
-     <rect>
-      <x>400</x>
-      <y>280</y>
-      <width>171</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>WeatherLabel</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
@@ -221,6 +195,38 @@
     <property name="text">
      <string>TODO</string>
     </property>
+   </widget>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>280</y>
+      <width>251</width>
+      <height>221</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="weatherIconLabel">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>60</y>
+       <width>101</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>WeatherIcon</string>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -244,6 +250,7 @@
      <string>Weather</string>
     </property>
     <addaction name="actionSelect_Zip_Code"/>
+    <addaction name="actionUpdate_Weather"/>
    </widget>
    <addaction name="menuMenu"/>
    <addaction name="menuWeater"/>
@@ -262,6 +269,11 @@
   <action name="actionSelect_Zip_Code">
    <property name="text">
     <string>Select Zip Code</string>
+   </property>
+  </action>
+  <action name="actionUpdate_Weather">
+   <property name="text">
+    <string>Update Weather</string>
    </property>
   </action>
  </widget>
