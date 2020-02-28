@@ -1,11 +1,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#include "todolist.h"
 
 #include <QMainWindow>
 #include <QTimer>
 #include <QTime>
 #include <QTimeZone>
+
+#include "todolist.h"
+#include "httpmanager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -26,10 +28,18 @@ private slots:
 
     void on_actionTerminate_triggered();
 
+    void processImage(QPixmap*);
+    void processWeatherJson(QJsonObject *json);
+
+    void on_loadImageButton_clicked();
+
+    void on_weatherDownloadButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QTimer *timer;
     todolist *myModel;
+    HTTPManager *httpManager;
 
 };
 #endif // MAINWINDOW_H

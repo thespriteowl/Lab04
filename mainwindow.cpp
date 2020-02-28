@@ -1,25 +1,34 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+
 #include <QFileDialog>
 #include <iostream>
 #include <QMessageBox>
+#include <QJsonObject>
+#include <QJsonArray>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
     ui(new Ui::MainWindow),
     timer(new QTimer),
-    myModel(new todolist(this))
+    myModel(new todolist(this)),
+    httpManager(new HTTPManager)
 
 {
     ui->setupUi(this);
     ui->todoTable->setModel(myModel);
 
-
-    connect(timer, SIGNAL(timeout()), this, SLOT(setCurrentTime()));
+    connect(timer, SIGNAL(timeout()),
+            this, SLOT(setCurrentTime()));
 
     setCurrentTime();
     timer->start(1000);
 
+    connect(httpManager, SIGNAL(ImageReady(QPixmap*)),
+            this, SLOT(processImage(QPixmap*)));
+
+    connect(httpManager, SIGNAL(WeatherJsonReady(QJsonObject*)),
+            this, SLOT(processWeatherJson(QJsonObject*)));
 }
 
 MainWindow::~MainWindow()
@@ -55,13 +64,9 @@ void MainWindow::setCurrentTime()
     else if (timeDay > 16)
         ui->greetingLabel->setText("Good Evening!");
     else
-        ui->greetingLabel->setText("Hello!");
+        ui->greetingLabel->setText("Hello, Ragamuffin!");
 
 }
-
-
-
-
 
 void MainWindow::on_actionImport_To_Do_List_triggered()
 {
@@ -76,4 +81,77 @@ void MainWindow::on_actionTerminate_triggered()
 {
     QApplication::quit();
 
+}
+
+void MainWindow::processImage(QPixmap *image)
+{
+    ui->imageLabel->setPixmap(*image);
+}
+
+void MainWindow::processWeatherJson(QJsonObject *json)
+{
+    QString weather = json->value("weather").toArray()[0].toObject()["main"].toString();
+    QString description = json->value("weather").toArray()[0].toObject()["description"].toString();
+    double temp = json->value("main").toObject()["temp"].toDouble();
+    double temp_min = json->value("main").toObject()["temp_min"].toDouble();
+    double temp_max = json->value("main").toObject()["temp_max"].toDouble();
+
+    { //Json Structure Reference
+        /*{
+  "coord": {"lon": -122.08,"lat": 37.39},
+  "weather": [
+    {
+      "id": 800,
+      "main": "Clear",
+      "description": "clear sky",
+      "icon": "01d"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 282.55,
+    "feels_like": 281.86,
+    "temp_min": 280.37,
+    "temp_max": 284.26,
+    "pressure": 1023,
+    "humidity": 100
+  },
+  "visibility": 16093,
+  "wind": {
+    "speed": 1.5,
+    "deg": 350
+  },
+  "clouds": {
+    "all": 1
+  },
+  "dt": 1560350645,
+  "sys": {
+    "type": 1,
+    "id": 5122,
+    "message": 0.0139,
+    "country": "US",
+    "sunrise": 1560343627,
+    "sunset": 1560396563
+  },
+  "timezone": -25200,
+  "id": 420006353,
+  "name": "Mountain View",
+  "cod": 200
+}*/
+    }
+
+
+
+    ui->weatherLabel->setText(description);
+
+}
+
+void MainWindow::on_loadImageButton_clicked()
+{
+    httpManager->sendImageRequest();
+}
+
+void MainWindow::on_weatherDownloadButton_clicked()
+{
+    httpManager->sendWeatherRequest("98404");
 }
