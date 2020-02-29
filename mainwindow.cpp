@@ -53,8 +53,13 @@ MainWindow::MainWindow(QWidget *parent)
     weatherTimer->start(60000); //One minute
 
     //Graphics Settings
-    setStyleSheet("background-color: rgb(0,170,170)");
-    //setStyleSheet("QPushButton {color: red}");
+    setStyleSheet("background-color: rgb(100,170,170)");
+    ui->menubar->setStyleSheet("background-color: rgb(40,100,100)");
+    ui->statusbar->setStyleSheet("background-color: rgb(40,100,100)");
+
+    qApp->setStyleSheet("QLCDNumber {color: rgb(40,100,100); background-color: rgb(130,160,200)}");
+    qApp->setStyleSheet("QLabel {color: rgb(0,60,10)}");
+    //"color: blue; background-color: yellow"
 
     ui->weatherDescLabel->setWordWrap(true);
 }

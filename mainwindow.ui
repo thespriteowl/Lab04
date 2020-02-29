@@ -39,6 +39,9 @@
       <height>201</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">text: rgb(255, 255, 127)</string>
+    </property>
     <property name="digitCount">
      <number>2</number>
     </property>
@@ -73,7 +76,10 @@
     </property>
     <property name="font">
      <font>
+      <family>Georgia</family>
       <pointsize>24</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="autoFillBackground">
@@ -94,6 +100,11 @@
       <width>211</width>
       <height>351</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Ebrima</family>
+     </font>
     </property>
     <attribute name="horizontalHeaderVisible">
      <bool>false</bool>
@@ -155,6 +166,7 @@
      </property>
      <property name="font">
       <font>
+       <family>Ebrima</family>
        <pointsize>24</pointsize>
       </font>
      </property>
@@ -173,6 +185,7 @@
      </property>
      <property name="font">
       <font>
+       <family>Ebrima</family>
        <pointsize>10</pointsize>
       </font>
      </property>
@@ -203,9 +216,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>550</y>
+      <y>610</y>
       <width>211</width>
-      <height>141</height>
+      <height>181</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -218,7 +231,7 @@
      <property name="geometry">
       <rect>
        <x>70</x>
-       <y>80</y>
+       <y>30</y>
        <width>61</width>
        <height>61</height>
       </rect>
@@ -234,7 +247,7 @@
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>80</y>
+       <y>30</y>
        <width>61</width>
        <height>61</height>
       </rect>
@@ -250,7 +263,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>80</y>
+       <y>30</y>
        <width>61</width>
        <height>61</height>
       </rect>
@@ -266,13 +279,14 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>50</y>
+       <y>0</y>
        <width>141</width>
        <height>31</height>
       </rect>
      </property>
      <property name="font">
       <font>
+       <family>Ebrima</family>
        <pointsize>12</pointsize>
       </font>
      </property>
@@ -314,6 +328,7 @@
     </property>
     <property name="font">
      <font>
+      <family>Ebrima</family>
       <pointsize>12</pointsize>
      </font>
     </property>
@@ -328,8 +343,14 @@
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>26</height>
+     <height>37</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Ebrima</family>
+     <pointsize>14</pointsize>
+    </font>
    </property>
    <widget class="QMenu" name="menuMenu">
     <property name="title">
