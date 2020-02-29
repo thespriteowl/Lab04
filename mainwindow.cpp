@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
     ui(new Ui::MainWindow),
     timer(new QTimer),
+    weatherTimer(new QTimer),
     myModel(new todolist(this)),
     httpManager(new HTTPManager)
 
@@ -22,8 +23,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->todoTable->setModel(myModel);
     ui->todoTable->horizontalHeader()->setStretchLastSection(true);
 
+    //Timers
     connect(timer, SIGNAL(timeout()),
             this, SLOT(setCurrentTime()));
+    connect(weatherTimer, SIGNAL(timeout()),
+            this, SLOT(updateWeather()));
 
     setCurrentTime();
     timer->start(1000);
@@ -36,9 +40,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Get Network Requests
     httpManager->sendWeatherRequest(zipCode);
+    weatherTimer->start(60000); //One minute
 
     //Graphics Settings
     setStyleSheet("background-color: rgb(0,170,170)");
+
+    ui->weatherDescLabel->setWordWrap(true);
 }
 MainWindow::~MainWindow()
 {
@@ -76,6 +83,12 @@ void MainWindow::setCurrentTime()
     else
         ui->greetingLabel->setText("Hello, Ragamuffin!");
 
+}
+
+//Update the Weather
+void MainWindow::updateWeather()
+{
+    httpManager->sendWeatherRequest(zipCode);
 }
 
 //Menu Bar Actions

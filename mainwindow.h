@@ -23,6 +23,7 @@ public:
 
 private slots:
     void setCurrentTime();
+    void updateWeather();
 
     //Network Actions
     void processImage(QPixmap*);
@@ -37,6 +38,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QTimer *timer;
+    QTimer *weatherTimer;
     todolist *myModel;
     HTTPManager *httpManager;
 
