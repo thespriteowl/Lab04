@@ -81,6 +81,8 @@ void MainWindow::setCurrentTime()
     ui->secondLCD->display(second);
 
     int worldHour = hour.toInt() + 3;
+    if (worldHour > 23)
+        worldHour = worldHour - 24;
 
     ui->worldHourLCD->display(worldHour);
     ui->worldMinuteLCD->display(minute);

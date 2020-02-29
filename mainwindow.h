@@ -38,7 +38,7 @@ private slots:
 
     void on_actionAdd_From_Computer_triggered();
 
-    void on_actionUpload_Photo_triggered();
+   // void on_actionUpload_Photo_triggered();
 
 private:
     Ui::MainWindow *ui;
