@@ -7,14 +7,19 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QInputDialog>
+#include <QPixmap>
+#include <QVector>
 
 QString zipCode = "98404";
+QVector<QPixmap*> imageList;
+int imageIndex = 0;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
     ui(new Ui::MainWindow),
     timer(new QTimer),
     weatherTimer(new QTimer),
+    photoTimer(new QTimer),
     myModel(new todolist(this)),
     httpManager(new HTTPManager)
 
@@ -28,9 +33,14 @@ MainWindow::MainWindow(QWidget *parent)
             this, SLOT(setCurrentTime()));
     connect(weatherTimer, SIGNAL(timeout()),
             this, SLOT(updateWeather()));
+    connect(photoTimer, SIGNAL(timeout()),
+            this, SLOT(updatePhoto()));
 
     setCurrentTime();
     timer->start(1000);
+
+    updatePhoto();
+    photoTimer->start(10000); //Update to 10 seconds.
 
     connect(httpManager, SIGNAL(ImageReady(QPixmap*)),
             this, SLOT(processImage(QPixmap*)));
@@ -44,6 +54,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Graphics Settings
     setStyleSheet("background-color: rgb(0,170,170)");
+    //setStyleSheet("QPushButton {color: red}");
 
     ui->weatherDescLabel->setWordWrap(true);
 }
@@ -91,6 +102,33 @@ void MainWindow::updateWeather()
     httpManager->sendWeatherRequest(zipCode);
 }
 
+//Update the Photos
+void MainWindow::updatePhoto()
+{
+    if (imageList.size() == 0)
+    {
+        //Nothing in the imageList.
+        ui->imageLabel->setText("");
+    }
+    else
+    {
+        //Increment index and update the image.
+        imageIndex++;
+        if (imageIndex >= imageList.size())
+        {
+            imageIndex = 0;
+        }
+
+        QPixmap photo = *imageList.at(imageIndex);
+        int w = ui->imageLabel->width();
+        int h = ui->imageLabel->height();
+
+        //ui->imageLabel->setPixmap(photo);
+
+        ui->imageLabel->setPixmap(photo.scaled(w,h,Qt::KeepAspectRatio));
+    }
+}
+
 //Menu Bar Actions
 void MainWindow::on_actionImport_To_Do_List_triggered()
 {
@@ -104,6 +142,30 @@ void MainWindow::on_actionTerminate_triggered()
 {
     QApplication::quit();
 
+}
+void MainWindow::on_actionSelect_Zip_Code_triggered()
+{
+    zipCode = QInputDialog::getText(this, tr("Type in a new zip code."),
+        tr("Zip Code: "), QLineEdit::Normal,
+        zipCode);
+    httpManager->sendWeatherRequest(zipCode);
+}
+void MainWindow::on_actionUpdate_Weather_triggered()
+{
+    httpManager->sendWeatherRequest(zipCode);
+}
+
+//Adding photos
+void MainWindow::on_actionAdd_From_Computer_triggered()
+{
+    QString fileName = QFileDialog::getOpenFileName(this,
+        tr("Select Image File"), "",
+        tr("Image (*png, *jpg);;All Files (*)"));
+
+    QPixmap* image = new QPixmap(fileName);
+    imageList.push_back(image);
+
+    updatePhoto();
 }
 
 //Process Network Requests
@@ -176,17 +238,4 @@ void MainWindow::processWeatherJson(QJsonObject *json)
     ui->weatherDescLabel->setText(description);
     ui->weatherHumidLabel->setText(QString::number(humidity) + "% Humidity.");
 
-}
-
-void MainWindow::on_actionSelect_Zip_Code_triggered()
-{
-    zipCode = QInputDialog::getText(this, tr("Type in a new zip code."),
-                                    tr("Zip Code: "), QLineEdit::Normal,
-                                    zipCode);
-    httpManager->sendWeatherRequest(zipCode);
-}
-
-void MainWindow::on_actionUpdate_Weather_triggered()
-{
-    httpManager->sendWeatherRequest(zipCode);
 }
